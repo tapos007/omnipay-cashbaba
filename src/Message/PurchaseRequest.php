@@ -14,26 +14,61 @@ use Omnipay\Common\Message\ResponseInterface;
 
 class PurchaseRequest extends AbstractRequest
 {
-
-    /**
-     * Get the raw data array for this message. The format of this varies from gateway to
-     * gateway, but will usually be either an associative array, or a SimpleXMLElement.
-     *
-     * @return mixed
-     */
-    public function getData()
+    public function getMerchantId()
     {
-        // TODO: Implement getData() method.
+        return $this->getParameter('merchantId');
     }
 
-    /**
-     * Send the request with specified data
-     *
-     * @param  mixed $data The data to send
-     * @return ResponseInterface
-     */
+    public function setMerchantId($value)
+    {
+        return $this->setParameter('merchantId', $value);
+    }
+
+    public function getMerchantKey()
+    {
+        return $this->getParameter('merchantKey');
+    }
+
+    public function setMerchantKey($value)
+    {
+        return $this->setParameter('merchantKey', $value);
+    }
+
+    public function getData()
+    {
+        $this->validate('amount', 'returnUrl');
+
+        $data = array();
+        $data['sid'] = $this->getMerchantId();
+        $data['cart_order_id'] = $this->getTransactionId();
+        $data['merchant_order_id'] = $this->getTransactionId();
+        $data['total'] = $this->getAmount();
+        $data['tco_currency'] = $this->getCurrency();
+        $data['fixed'] = 'Y';
+        $data['skip_landing'] = 1;
+        $data['x_receipt_link_url'] = $this->getReturnUrl();
+
+        if ($this->getCard()) {
+            $data['card_holder_name'] = $this->getCard()->getName();
+            $data['street_address'] = $this->getCard()->getAddress1();
+            $data['street_address2'] = $this->getCard()->getAddress2();
+            $data['city'] = $this->getCard()->getCity();
+            $data['state'] = $this->getCard()->getState();
+            $data['zip'] = $this->getCard()->getPostcode();
+            $data['country'] = $this->getCard()->getCountry();
+            $data['phone'] = $this->getCard()->getPhone();
+            $data['email'] = $this->getCard()->getEmail();
+        }
+
+        if ($this->getTestMode()) {
+            $data['demo'] = 'Y';
+        }
+
+        return $data;
+    }
+
     public function sendData($data)
     {
-        // TODO: Implement sendData() method.
+        return $this->response = new PurchaseResponse($this, $data);
     }
 }
