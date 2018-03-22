@@ -1,0 +1,33 @@
+{
+  "name": "omnipay/cashbaba",
+  "description": "CashBaba Driver for the Omnipay payment processing library",
+  "type": "library",
+  "keywords": [
+    "cashbaba",
+    "payment gateway",
+    "gateway",
+    "merchant",
+    "omnipay",
+    "pay",
+    "payment"
+  ],
+  "homepage": "https://github.com/tapos007/omnipay-cashbaba",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "tapos ghosh",
+      "email": "tapos.aa@gmail.com"
+    },
+    {
+      "name": "Mohammad Sharif",
+      "email": "sharif0025@gmail.com"
+    },
+    {
+      "name": "MD Sumon Mia",
+      "email": "sumon@r-cis.com"
+    }
+  ],
+  "require": {
+    "omnipay/omnipay": "^2.3"
+  }
+}
