@@ -2,7 +2,7 @@
 
 **CashBaba driver for the Omnipay PHP payment processing library**
 
-[![Build Status](https://travis-ci.org/thephpleague/omnipay-buckaroo.png?branch=master)](https://travis-ci.org/thephpleague/omnipay-buckaroo)
+[![Build Status](https://github.com/tapos007/omnipay-cashbaba/tree/master)](https://travis-ci.org/tapos007/omnipay-cashbaba)
 [![Latest Stable Version](https://poser.pugx.org/omnipay/buckaroo/version.png)](https://packagist.org/packages/omnipay/buckaroo)
 [![Total Downloads](https://poser.pugx.org/omnipay/buckaroo/d/total.png)](https://packagist.org/packages/omnipay/buckaroo)
 
@@ -17,7 +17,7 @@ to your `composer.json` file:
 ```json
 {
     "require": {
-        "omnipay/buckaroo": "~2.0"
+        "omnipay/cashbaba": "~2.0"
     }
 }
 ```
@@ -31,10 +31,10 @@ And run composer to update your dependencies:
 
 The following gateways are provided by this package:
 
-* Buckaroo_CreditCard
-* Buckaroo_Ideal
-* Buckaroo_PayPal
-* Buckaroo_SepaDirectDebit
+* CashBaba_CreditCard
+* CashBaba_Ideal
+* CashBaba_PayPal
+* CashBaba_SepaDirectDebit
 
 For general usage instructions, please see the main [Omnipay](https://github.com/thephpleague/omnipay)
 repository.
