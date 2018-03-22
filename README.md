@@ -2,9 +2,6 @@
 
 **CashBaba driver for the Omnipay PHP payment processing library**
 
-[![Build Status](https://github.com/tapos007/omnipay-cashbaba/tree/master)](https://travis-ci.org/tapos007/omnipay-cashbaba)
-[![Latest Stable Version](https://poser.pugx.org/omnipay/buckaroo/version.png)](https://packagist.org/packages/omnipay/buckaroo)
-[![Total Downloads](https://poser.pugx.org/omnipay/buckaroo/d/total.png)](https://packagist.org/packages/omnipay/buckaroo)
 
 [Omnipay](https://github.com/thephpleague/omnipay) is a framework agnostic, multi-gateway payment
 processing library for PHP 5.3+. This package implements Buckaroo support for Omnipay.
