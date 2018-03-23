@@ -30,7 +30,15 @@
   "autoload": {
     "psr-4": { "Omnipay\\CashBaBa\\" : "src/" }
   },
-  "require": {
-    "omnipay/omnipay": "^2.3"
-  }
+   "require": {
+        "omnipay/common": "~2.0"
+    },
+    "require-dev": {
+        "omnipay/tests": "~2.0"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.0.x-dev"
+        }
+    }
 }
