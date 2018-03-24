@@ -29,5 +29,7 @@
   ],
    "require": {
         "omnipay/common": "~2.0"
-    }
+    },
+	"version": "1.0.0", //Version of the package
+    "minimum-stability": "dev" //Stability
 }
