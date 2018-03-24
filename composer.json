@@ -27,9 +27,6 @@
       "email": "sumon@r-cis.com"
     }
   ],
-  "autoload": {
-    "psr-4": { "Omnipay\\CashBaBa\\" : "src/" }
-  },
    "require": {
         "omnipay/common": "~2.0"
     }
