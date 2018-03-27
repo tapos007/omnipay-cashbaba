@@ -1,21 +1,19 @@
 <?php
+
+namespace Omnipay\CashBaba\Message;
+
+use Omnipay\Common\Exception\InvalidResponseException;
+
 /**
- * Created by PhpStorm.
- * User: R041604014
- * Date: 3/22/2018
- * Time: 6:38 PM
+ * cashBaba Complete Purchase Request
  */
-
-namespace Omnipay\CashBaBa\Message;
-
-
 class CompletePurchaseRequest extends PurchaseRequest
 {
     public function getData()
     {
         $orderNo = $this->httpRequest->request->get('order_number');
 
-        // strange exception specified by CashBaba
+        // strange exception specified by 2Checkout
         if ($this->getTestMode()) {
             $orderNo = '1';
         }

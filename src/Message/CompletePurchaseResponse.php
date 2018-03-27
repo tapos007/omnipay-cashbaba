@@ -1,23 +1,14 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: R041604014
- * Date: 3/22/2018
- * Time: 6:50 PM
- */
 
-namespace Omnipay\CashBaBa\Message;
+namespace Omnipay\CashBaba\Message;
+
 use Omnipay\Common\Message\AbstractResponse;
 
-
-class CompletePurchaseResponse  extends AbstractResponse
+/**
+ * CashBaba Complete Purchase Response
+ */
+class CompletePurchaseResponse extends AbstractResponse
 {
-
-    /**
-     * Is the response successful?
-     *
-     * @return boolean
-     */
     public function isSuccessful()
     {
         return true;

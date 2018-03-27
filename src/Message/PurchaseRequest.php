@@ -1,17 +1,12 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: R041604014
- * Date: 3/22/2018
- * Time: 6:37 PM
- */
 
-namespace Omnipay\CashBaBa\Message;
-
+namespace Omnipay\CashBaba\Message;
 
 use Omnipay\Common\Message\AbstractRequest;
-use Omnipay\Common\Message\ResponseInterface;
 
+/**
+ * CashBaba Purchase Request
+ */
 class PurchaseRequest extends AbstractRequest
 {
     public function getMerchantId()
@@ -34,20 +29,74 @@ class PurchaseRequest extends AbstractRequest
         return $this->setParameter('merchantKey', $value);
     }
 
+	
+	
+	public function setQuantity($value)
+    {
+        return $this->setParameter('quantity', $value);
+    }
+    public function setOrderId($value)
+    {
+        return $this->setParameter('orderId', $value);
+    }
+    public function setExpectedSettlementDate($value)
+    {
+        return $this->setParameter('expectedSettlementDate', $value);
+    }
+	
+	
+	
+	
+	
+	public function getQuantity()
+    {
+        return $this->getParameter('quantity');
+    }
+    public function getOrderId()
+    {
+        return $this->getParameter('orderId');
+    }
+    public function getExpectedSettlementDate()
+    {
+        return $this->getParameter('expectedSettlementDate');
+    }
+	
+	
+	
+	
+	
+	
     public function getData()
     {
+		
         $this->validate('amount', 'returnUrl');
 
         $data = array();
-        $data['sid'] = $this->getMerchantId();
-        $data['cart_order_id'] = $this->getTransactionId();
+		
+        $data['MerchantId'] 			= $this->getMerchantId();
+        $data['MerchantKey'] 			= $this->getMerchantKey();
+        $data['NoOfItems'] 				= $this->getQuantity();
+        $data['OrderId'] 				= $this->getOrderId();
+        $data['OrderAmount'] 			= $this->getAmount();
+        $data['ExpectedSettlementDate'] = $this->getExpectedSettlementDate();
+        $data['ReturnUrl'] 				= $this->getReturnUrl();
+		
+		
+        /*$data['cart_order_id'] = $this->getTransactionId();
         $data['merchant_order_id'] = $this->getTransactionId();
         $data['total'] = $this->getAmount();
         $data['tco_currency'] = $this->getCurrency();
+		
+        $data['quantity'] = $this->getQuantity();
+        $data['orderId'] = $this->getOrderId();
+        $data['expectedSettlementDate'] = $this->getExpectedSettlementDate();
+		
         $data['fixed'] = 'Y';
-        $data['skip_landing'] = 1;
-        $data['x_receipt_link_url'] = $this->getReturnUrl();
+        $data['skip_landing'] = 1; */
+       
 
+		
+		
         if ($this->getCard()) {
             $data['card_holder_name'] = $this->getCard()->getName();
             $data['street_address'] = $this->getCard()->getAddress1();
@@ -63,6 +112,11 @@ class PurchaseRequest extends AbstractRequest
         if ($this->getTestMode()) {
             $data['demo'] = 'Y';
         }
+		
+		/*echo "<pre>";
+			print_r($data);
+		echo "</pre>";
+		exit; */
 
         return $data;
     }

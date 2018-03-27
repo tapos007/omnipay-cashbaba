@@ -1,28 +1,21 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: R041604014
- * Date: 3/22/2018
- * Time: 6:14 PM
- */
 
-namespace Omnipay\CashBaBa;
-
+namespace Omnipay\CashBaba;
 
 use Omnipay\Common\AbstractGateway;
+use Omnipay\CashBaba\Message\CompletePurchaseRequest;
+use Omnipay\CashBaba\Message\PurchaseRequest;
 
+/**
+ * cashBaba Gateway
+ *
+ * @link https://www.cashbaba.com
+ */
 class Gateway extends AbstractGateway
 {
-
-
-    /**
-     * Get gateway display name
-     *
-     * This can be used by carts to get the display name for each gateway.
-     */
     public function getName()
     {
-        return 'CashBaBa';
+        return 'cashbaba';
     }
 
     public function getDefaultParameters()
@@ -53,7 +46,41 @@ class Gateway extends AbstractGateway
     {
         return $this->setParameter('merchantKey', $value);
     }
-
+	
+	
+	public function setQuantity($value)
+    {
+        return $this->setParameter('quantity', $value);
+    }
+    public function setOrderId($value)
+    {
+        return $this->setParameter('orderId', $value);
+    }
+    public function setExpectedSettlementDate($value)
+    {
+        return $this->setParameter('expectedSettlementDate', $value);
+    }
+	
+	
+	
+	
+	public function getQuantity()
+    {
+        return $this->getParameter('quantity');
+    }
+    public function getOrderId()
+    {
+        return $this->getParameter('orderId');
+    }
+    public function getExpectedSettlementDate()
+    {
+        return $this->getParameter('expectedSettlementDate');
+    }
+	
+	
+	
+	
+	
 
     public function purchase(array $parameters = array())
     {
