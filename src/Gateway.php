@@ -7,7 +7,7 @@ use Omnipay\CashBaba\Message\CompletePurchaseRequest;
 use Omnipay\CashBaba\Message\PurchaseRequest;
 
 /**
- * cashBaba Gateway
+ * cashbaba Gateway
  *
  * @link https://www.cashbaba.com
  */

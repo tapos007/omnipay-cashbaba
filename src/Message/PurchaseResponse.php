@@ -10,7 +10,7 @@ use Omnipay\Common\Message\RedirectResponseInterface;
  */
 class PurchaseResponse extends AbstractResponse implements RedirectResponseInterface
 {
-    protected $endpoint = 'https://sanapi.cashbaba.com.bd/api/Payment/Sale';  // https://www.2checkout.com/checkout/purchase
+    protected $endpoint = 'https://sanapi.cashbaba.com.bd/api/Payment/Sale';
 
     public function isSuccessful()
     {
@@ -26,10 +26,8 @@ class PurchaseResponse extends AbstractResponse implements RedirectResponseInter
     {
 		
 		
-		$query = http_build_query($this->data); 
-		
-		
-		
+		$query = http_build_query($this->data);
+
 		// create context
 		$context = stream_context_create(array(
 			'http' => array(
@@ -55,20 +53,6 @@ class PurchaseResponse extends AbstractResponse implements RedirectResponseInter
 			}else{
 				echo $msg ;
 			}
-		
-//		echo "<pre>";
-//		print_r($response);
-//		echo "</pre>";
-//		exit;
-		
-		//return $response;
-		/*echo "<pre>";
-		print_r($response);
-		echo "</pre>";
-		exit; */
-		
-		//return $response;
-        //return $this->endpoint.'?'.http_build_query($this->data);
     }
 
     public function getRedirectMethod()
