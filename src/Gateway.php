@@ -6,11 +6,48 @@ use Omnipay\Common\AbstractGateway;
 use Omnipay\CashBaba\Message\CompletePurchaseRequest;
 use Omnipay\CashBaba\Message\PurchaseRequest;
 
+
+
 /**
- * cashbaba Gateway
+ * Cashbaba Gateway.
  *
- * @link https://www.cashbaba.com
+ * Example:
+ *
+ * <code>
+ *   // Create a gateway for the Cashbaba Gateway
+ *   // (routes to GatewayFactory::create)
+ *   $gateway = Omnipay::create('CashBaba');
+ *
+ *   // Initialise the gateway
+ *   $gateway->initialize(array(
+ *       'merchantId' => 'MymerchantId',
+ *       'merchantKey' => 'MymerchantKey',
+ *       'quantity' => 'Quantity',
+ *       'orderId' => 'OrderId',
+ *       'expectedSettlementDate' => 'ExpectedSettlementDate'
+ *   ));
+ *
+ *
+ *   // Do a purchase transaction on the gateway
+ *   $transaction = $gateway->purchase(array(
+ *       'amount'                   => '100.00',
+ *       'currency'                 => 'USD',
+ *       'returnUrl'                => 'http://omnipay-cashbaba.test/success.php'
+ *   ));
+ *   $response = $transaction->send();
+ *
+ * Then your given link 'http://omnipay-cashbaba.test/success.php' (success.php)
+ *   <pre>
+ *      print_r($_POST);
+ *   </pre>
+ *
+ * </code>
+ *
  */
+
+
+
+
 class Gateway extends AbstractGateway
 {
     public function getName()
