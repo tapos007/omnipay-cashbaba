@@ -2,6 +2,7 @@
 
 namespace Omnipay\CashBaBa\Message;
 
+use Omnipay\Common\Exception\InvalidRequestException;
 use Omnipay\Common\Message\AbstractRequest;
 
 /**
@@ -65,7 +66,10 @@ class PurchaseRequest extends AbstractRequest
     public function getData()
     {
 
-        $this->validate('amount', 'returnUrl');
+        try {
+            $this->validate('amount', 'returnUrl');
+        } catch (InvalidRequestException $e) {
+        }
 
         $data = array();
 

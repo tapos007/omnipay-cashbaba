@@ -7,8 +7,8 @@ use Omnipay\Common\CreditCard;
 
 class GatewayTest extends GatewayTestCase
 {
-     const MERCHANTID = '990040129';
-     const MERCHANTKEY = '73ICB:M1Z9';
+     const MERCHANTID = '19800';
+     const MERCHANTKEY = 'T6F%Hi34jv';
     public function setUp()
     {
         parent::setUp();
