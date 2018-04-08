@@ -2,8 +2,9 @@
 
 namespace Omnipay\CashBaBa;
 
-use Omnipay\Tests\GatewayTestCase;
 use Omnipay\Common\CreditCard;
+use Omnipay\Tests\GatewayTestCase;
+
 
 class GatewayTest extends GatewayTestCase
 {
