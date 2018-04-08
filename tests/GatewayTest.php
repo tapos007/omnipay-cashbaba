@@ -7,13 +7,15 @@ use Omnipay\Common\CreditCard;
 
 class GatewayTest extends GatewayTestCase
 {
+    public const MERCHANTID = '990040129';
+    public const MERCHANTKEY = '73ICB:M1Z9';
     public function setUp()
     {
         parent::setUp();
 
         $this->gateway = new Gateway($this->getHttpClient(), $this->getHttpRequest());
-        $this->gateway->setMerchantId('128700');
-        $this->gateway->setMerchantKey('RZ:Logvisc');
+        $this->gateway->setMerchantId(GatewayTest::MERCHANTID);
+        $this->gateway->setMerchantKey(GatewayTest::MERCHANTKEY);
 
         $this->gateway->setQuantity('1');
         $this->gateway->setOrderId('2');

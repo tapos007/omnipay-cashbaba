@@ -2,6 +2,7 @@
 
 namespace Omnipay\CashBaBa\Message;
 
+use Omnipay\CashBaBa\GatewayTest;
 use Omnipay\Tests\TestCase;
 
 class PurchaseRequestTest extends TestCase
@@ -11,15 +12,15 @@ class PurchaseRequestTest extends TestCase
     {
         $request = new PurchaseRequest($this->getHttpClient(), $this->getHttpRequest());
 
-        $request->setMerchantId('990040129');
-        $request->setMerchantKey('73ICB:M1Z9');
+        $request->setMerchantId(GatewayTest::MERCHANTID);
+        $request->setMerchantKey(GatewayTest::MERCHANTKEY);
         $request->setQuantity('1');
         $request->setExpectedSettlementDate('03-27-2018');
         $request->setAmount('100.00');
         $request->setReturnUrl('http://example.com/return');
         $requestData = $request->getData();
-        $this->assertEquals($requestData['MerchantId'], '990040129');
-        $this->assertEquals($requestData['MerchantKey'], '73ICB:M1Z9');
+        $this->assertEquals($requestData['MerchantId'], GatewayTest::MERCHANTID);
+        $this->assertEquals($requestData['MerchantKey'], GatewayTest::MERCHANTKEY);
         $this->assertEquals($requestData['NoOfItems'], '1');
         $this->assertEquals($requestData['OrderId'], '2');
         $this->assertEquals($requestData['OrderAmount'], '100.00');
