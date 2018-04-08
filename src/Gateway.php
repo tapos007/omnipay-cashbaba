@@ -7,7 +7,6 @@ use Omnipay\CashBaba\Message\CompletePurchaseRequest;
 use Omnipay\CashBaba\Message\PurchaseRequest;
 
 
-
 /**
  * Cashbaba Gateway.
  *
@@ -44,10 +43,6 @@ use Omnipay\CashBaba\Message\PurchaseRequest;
  * </code>
  *
  */
-
-
-
-
 class Gateway extends AbstractGateway
 {
     public function getName()
@@ -83,41 +78,39 @@ class Gateway extends AbstractGateway
     {
         return $this->setParameter('merchantKey', $value);
     }
-	
-	
-	public function setQuantity($value)
+
+
+    public function setQuantity($value)
     {
         return $this->setParameter('quantity', $value);
     }
+
     public function setOrderId($value)
     {
         return $this->setParameter('orderId', $value);
     }
+
     public function setExpectedSettlementDate($value)
     {
         return $this->setParameter('expectedSettlementDate', $value);
     }
-	
-	
-	
-	
-	public function getQuantity()
+
+
+    public function getQuantity()
     {
         return $this->getParameter('quantity');
     }
+
     public function getOrderId()
     {
         return $this->getParameter('orderId');
     }
+
     public function getExpectedSettlementDate()
     {
         return $this->getParameter('expectedSettlementDate');
     }
-	
-	
-	
-	
-	
+
 
     public function purchase(array $parameters = array())
     {

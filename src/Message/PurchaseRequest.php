@@ -29,57 +29,53 @@ class PurchaseRequest extends AbstractRequest
         return $this->setParameter('merchantKey', $value);
     }
 
-	
-	
-	public function setQuantity($value)
+
+    public function setQuantity($value)
     {
         return $this->setParameter('quantity', $value);
     }
+
     public function setOrderId($value)
     {
         return $this->setParameter('orderId', $value);
     }
+
     public function setExpectedSettlementDate($value)
     {
         return $this->setParameter('expectedSettlementDate', $value);
     }
-	
-	
-	
-	
-	
-	public function getQuantity()
+
+
+    public function getQuantity()
     {
         return $this->getParameter('quantity');
     }
+
     public function getOrderId()
     {
         return $this->getParameter('orderId');
     }
+
     public function getExpectedSettlementDate()
     {
         return $this->getParameter('expectedSettlementDate');
     }
-	
-	
-	
-	
-	
-	
+
+
     public function getData()
     {
-		
+
         $this->validate('amount', 'returnUrl');
 
         $data = array();
-		
-        $data['MerchantId'] 			= $this->getMerchantId();
-        $data['MerchantKey'] 			= $this->getMerchantKey();
-        $data['NoOfItems'] 				= $this->getQuantity();
-        $data['OrderId'] 				= $this->getOrderId();
-        $data['OrderAmount'] 			= $this->getAmount();
+
+        $data['MerchantId'] = $this->getMerchantId();
+        $data['MerchantKey'] = $this->getMerchantKey();
+        $data['NoOfItems'] = $this->getQuantity();
+        $data['OrderId'] = $this->getOrderId();
+        $data['OrderAmount'] = $this->getAmount();
         $data['ExpectedSettlementDate'] = $this->getExpectedSettlementDate();
-        $data['ReturnUrl'] 				= $this->getReturnUrl();
+        $data['ReturnUrl'] = $this->getReturnUrl();
 
         if ($this->getTestMode()) {
             $data['demo'] = 'Y';

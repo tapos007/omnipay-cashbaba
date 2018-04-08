@@ -18,7 +18,7 @@ class CompletePurchaseRequest extends PurchaseRequest
             $orderNo = '1';
         }
 
-        $key = md5($this->getMerchantKey().$this->getMerchantId().$orderNo.$this->getAmount());
+        $key = md5($this->getMerchantKey() . $this->getMerchantId() . $orderNo . $this->getAmount());
         if (strtolower($this->httpRequest->request->get('key')) !== $key) {
             throw new InvalidResponseException('Invalid key');
         }
