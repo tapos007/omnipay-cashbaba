@@ -28,13 +28,17 @@
     }
   ],
   "autoload": {
-    "psr-4": { "Omnipay\\CashBaBa\\" : "src/" }
+    "psr-4": { "Omnipay\\CashBaBa\\" : "src/" },
+    "classmap": [
+      "src/"
+    ]
   },
    "require": {
-        "omnipay/common": "~2.0"
+        "omnipay/common": "~2.0",
+        "omnipay/tests": "^2.1"
    },
   "require-dev": {
-    "omnipay/tests": "~2.0"
+
   },
   "extra": {
     "branch-alias": {

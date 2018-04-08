@@ -26,6 +26,7 @@ class PurchaseResponse extends AbstractResponse implements RedirectResponseInter
     {
 
         $query = http_build_query($this->data);
+
         $context = stream_context_create(array(
             'http' => array(
                 'method' => 'POST',
@@ -41,13 +42,15 @@ class PurchaseResponse extends AbstractResponse implements RedirectResponseInter
         );
 
         $receivedData = json_decode($response, true);
+
+
         $url = $receivedData['RedirectUrl'];
 
         $msg = $receivedData['Message'];
 
         if ($msg == 'Ok') {
             header('Location:' . $url);
-            exit;
+
         } else {
             echo $msg;
         }
