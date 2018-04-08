@@ -12,12 +12,12 @@ class GatewayTest extends GatewayTestCase
         parent::setUp();
 
         $this->gateway = new Gateway($this->getHttpClient(), $this->getHttpRequest());
-        $gateway->setMerchantId('128700');
-        $gateway->setMerchantKey('RZ:Logvisc');
+        $this->gateway->setMerchantId('128700');
+        $this->gateway->setMerchantKey('RZ:Logvisc');
 
-        $gateway->setQuantity('1');
-        $gateway->setOrderId('2');
-        $gateway->setExpectedSettlementDate('03-27-2018');
+        $this->gateway->setQuantity('1');
+        $this->gateway->setOrderId('2');
+        $this->gateway->setExpectedSettlementDate('03-27-2018');
 
         $this->options = array(
             'amount' => '100.00',
