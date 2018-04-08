@@ -30,6 +30,9 @@
    "require": {
         "omnipay/common": "~2.0"
     },
+  "require-dev": {
+    "omnipay/tests": "~2.0"
+  },
 	"version": "1.0.0",
     "minimum-stability": "dev"
 }
