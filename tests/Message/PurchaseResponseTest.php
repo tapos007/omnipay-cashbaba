@@ -1,6 +1,6 @@
 <?php
 
-namespace Omnipay\CashBaba\Message;
+namespace Omnipay\CashBaBa\Message;
 
 use Omnipay\Tests\TestCase;
 
@@ -9,7 +9,7 @@ class PurchaseResponseTest extends TestCase
     public function testConstruct()
     {
         $request = $this->getMockRequest();
-        $request->shouldReceive('getTestMode')->andReturn(false);
+        $request->shouldReceive()->andReturn(false);
 
         $response = new Purchaseresponse($request);
 

@@ -1,53 +1,24 @@
 <?php
 
-namespace Omnipay\CashBaba;
+/**
+ * CashBaBa Payments Gateway
+ */
+
+namespace Omnipay\CashBaBa;
+
 
 use Omnipay\Common\AbstractGateway;
-use Omnipay\CashBaba\Message\CompletePurchaseRequest;
-use Omnipay\CashBaba\Message\PurchaseRequest;
 
-
-/**
- * Cashbaba Gateway.
- *
- * Example:
- *
- * <code>
- *   // Create a gateway for the Cashbaba Gateway
- *   // (routes to GatewayFactory::create)
- *   $gateway = Omnipay::create('CashBaba');
- *
- *   // Initialise the gateway
- *   $gateway->initialize(array(
- *       'merchantId' => 'MymerchantId',
- *       'merchantKey' => 'MymerchantKey',
- *       'quantity' => 'Quantity',
- *       'orderId' => 'OrderId',
- *       'expectedSettlementDate' => 'ExpectedSettlementDate'
- *   ));
- *
- *
- *   // Do a purchase transaction on the gateway
- *   $transaction = $gateway->purchase(array(
- *       'amount'                   => '100.00',
- *       'currency'                 => 'USD',
- *       'returnUrl'                => 'http://omnipay-cashbaba.test/success.php'
- *   ));
- *   $response = $transaction->send();
- *
- * Then your given link 'http://omnipay-cashbaba.test/success.php' (success.php)
- *   <pre>
- *      print_r($_POST);
- *   </pre>
- *
- * </code>
- *
- */
 class Gateway extends AbstractGateway
 {
+
+
+    /**
+     * @return string
+     */
     public function getName()
     {
-        return 'cashbaba';
+        return 'CashBaBa';
     }
 
     public function getDefaultParameters()
@@ -108,14 +79,14 @@ class Gateway extends AbstractGateway
     {
         return $this->getParameter('expectedSettlementDate');
     }
-    
+
     public function purchase(array $parameters = array())
     {
-        return $this->createRequest('\Omnipay\CashBaba\Message\PurchaseRequest', $parameters);
+        return $this->createRequest('\Omnipay\CashBaBa\Message\PurchaseRequest', $parameters);
     }
 
     public function completePurchase(array $parameters = array())
     {
-        return $this->createRequest('\Omnipay\CashBaba\Message\CompletePurchaseRequest', $parameters);
+        return $this->createRequest('\Omnipay\CashBaBa\Message\CompletePurchaseRequest', $parameters);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Omnipay\CashBaba\Message;
+namespace Omnipay\CashBaBa\Message;
 
 use Omnipay\Common\Message\AbstractRequest;
 

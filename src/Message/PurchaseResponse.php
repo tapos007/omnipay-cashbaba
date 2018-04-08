@@ -1,12 +1,12 @@
 <?php
 
-namespace Omnipay\CashBaba\Message;
+namespace Omnipay\CashBaBa\Message;
 
 use Omnipay\Common\Message\AbstractResponse;
 use Omnipay\Common\Message\RedirectResponseInterface;
 
 /**
- * CashBaba Purchase Response
+ * CashBaBa Purchase Response
  */
 class PurchaseResponse extends AbstractResponse implements RedirectResponseInterface
 {
@@ -25,10 +25,7 @@ class PurchaseResponse extends AbstractResponse implements RedirectResponseInter
     public function getRedirectUrl()
     {
 
-
         $query = http_build_query($this->data);
-
-        // create context
         $context = stream_context_create(array(
             'http' => array(
                 'method' => 'POST',
@@ -40,7 +37,8 @@ class PurchaseResponse extends AbstractResponse implements RedirectResponseInter
         $response = file_get_contents(
             $target = $this->endpoint,
             $use_include_path = false,
-            $context);
+            $context
+        );
 
         $receivedData = json_decode($response, true);
         $url = $receivedData['RedirectUrl'];

@@ -1,6 +1,6 @@
 <?php
 
-namespace Omnipay\CashBaba\Message;
+namespace Omnipay\CashBaBa\Message;
 
 use Omnipay\Tests\TestCase;
 
@@ -16,9 +16,7 @@ class PurchaseRequestTest extends TestCase
         $request->setExpectedSettlementDate('03-27-2018');
         $request->setAmount('100.00');
         $request->setReturnUrl('http://example.com/return');
-
         $requestData = $request->getData();
-
         $this->assertEquals($requestData['MerchantId'], '128700');
         $this->assertEquals($requestData['MerchantKey'], 'RZ:Logvisc');
         $this->assertEquals($requestData['NoOfItems'], '1');

@@ -1,6 +1,6 @@
 <?php
 
-namespace Omnipay\CashBaba;
+namespace Omnipay\CashBaBa;
 
 use Omnipay\Tests\GatewayTestCase;
 use Omnipay\Common\CreditCard;
@@ -39,9 +39,7 @@ class GatewayTest extends GatewayTestCase
         $this->assertNull($response->getRedirectData());
     }
 
-    /**
-     * @expectedException Omnipay\Common\Exception\InvalidResponseException
-     */
+
     public function testCompletePurchaseError()
     {
         $this->getHttpRequest()->request->replace(array('order_number' => '5', 'key' => 'SSS'));
