@@ -79,7 +79,6 @@ class Gateway extends AbstractGateway
         return $this->setParameter('merchantKey', $value);
     }
 
-
     public function setQuantity($value)
     {
         return $this->setParameter('quantity', $value);
@@ -95,7 +94,6 @@ class Gateway extends AbstractGateway
         return $this->setParameter('expectedSettlementDate', $value);
     }
 
-
     public function getQuantity()
     {
         return $this->getParameter('quantity');
@@ -110,8 +108,7 @@ class Gateway extends AbstractGateway
     {
         return $this->getParameter('expectedSettlementDate');
     }
-
-
+    
     public function purchase(array $parameters = array())
     {
         return $this->createRequest('\Omnipay\CashBaba\Message\PurchaseRequest', $parameters);
