@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Stripe Delete Credit Card Request.
+ * CashBaBa Delete Credit Card Request.
  */
 namespace Omnipay\CashBaBa\Message;
 
 /**
- * Stripe Delete Credit Card Request.
+ * CashBaBa Delete Credit Card Request.
  *
  * This is normally used to delete a credit card from an existing
  * customer.
@@ -29,7 +29,7 @@ namespace Omnipay\CashBaBa\Message;
  * a customerReference and delete the customer.  This might be
  * dangerous but it's the best way to ensure backwards compatibility.
  *
- * @link https://stripe.com/docs/api#delete_card
+ * @link https://CashBaBa.com/docs/api#delete_card
  */
 class DeleteCardRequest extends AbstractRequest
 {

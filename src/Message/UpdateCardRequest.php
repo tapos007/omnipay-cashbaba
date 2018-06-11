@@ -1,24 +1,24 @@
 <?php
 
 /**
- * Stripe Update Credit Card Request.
+ * CashBaBa Update Credit Card Request.
  */
 namespace Omnipay\CashBaBa\Message;
 
 /**
- * Stripe Update Credit Card Request.
+ * CashBaBa Update Credit Card Request.
  *
  * If you need to update only some card details, like the billing
  * address or expiration date, you can do so without having to re-enter
- * the full card details. Stripe also works directly with card networks
+ * the full card details. CashBaBa also works directly with card networks
  * so that your customers can continue using your service without
  * interruption.
  *
- * When you update a card, Stripe will automatically validate the card.
+ * When you update a card, CashBaBa will automatically validate the card.
  *
  * This requires both a customerReference and a cardReference.
  *
- * @link https://stripe.com/docs/api#update_card
+ * @link https://CashBaBa.com/docs/api#update_card
  */
 class UpdateCardRequest extends AbstractRequest
 {
