@@ -9,7 +9,7 @@ namespace Omnipay\CashBaBa;
 
 use Omnipay\Common\AbstractGateway;
 
-class Gateway extends AbstractGateway
+class GatewayOld extends AbstractGateway
 {
 
 
