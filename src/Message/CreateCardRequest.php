@@ -49,6 +49,7 @@ namespace Omnipay\CashBaBa\Message;
  *   $response = $gateway->createCard(array(
  *       'card'              => $new_card,
  *       'customerReference' => $customer_id,
+ *       'marchant_id' => $customer_id,
  *   ))->send();
  *   if ($response->isSuccessful()) {
  *       echo "Gateway createCard was successful.\n";
