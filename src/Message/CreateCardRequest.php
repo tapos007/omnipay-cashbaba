@@ -5,7 +5,7 @@
  */
 
 namespace Omnipay\CashBaBa\Message;
-
+use Omnipay\Common\Exception\InvalidRequestException;
 
 
 /**
@@ -75,20 +75,16 @@ class CreateCardRequest extends AbstractRequest
         if (!$this->getCustomerReference()) {
             $data['description'] = $this->getDescription();
         }
-        if ($this->getSource()) {
-            $data['source'] = $this->getSource();
-        } elseif ($this->getCardReference()) {
-            $data['source'] = $this->getCardReference();
-        } elseif ($this->getToken()) {
-            $data['source'] = $this->getToken();
-        } elseif ($this->getCard()) {
+
+
+        if($this->getCard()){
             $this->getCard()->validate();
-            $data['source'] = $this->getCardData();
-            // Only set the email address if we are creating a new customer.
+            $data = array_merge($data,$this->getCardData());
             if (!$this->getCustomerReference()) {
                 $data['email'] = $this->getCard()->getEmail();
             }
-        } else {
+        }
+        else {
             // one of token or card is required
             try {
                 $this->validate('source');

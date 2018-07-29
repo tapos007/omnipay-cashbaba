@@ -39,7 +39,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
      *
      * @var string URL
      */
-    protected $endpoint = 'http://localhost:3000';
+    protected $endpoint = 'http://localhost:62048/api';
 
     /**
      * Get the gateway API Key.
@@ -190,7 +190,9 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         );
 
 
-        $body = json_encode($data) ;
+       $body = json_encode($data) ;
+
+
 
         $httpResponse = $this->httpClient->request($this->getHttpMethod(), $this->getEndpoint(), $headers, $body);
 
@@ -282,19 +284,19 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 
         $data = array();
         $data['object'] = 'card';
-        $data['number'] = $card->getNumber();
-        $data['exp_month'] = $card->getExpiryMonth();
-        $data['exp_year'] = $card->getExpiryYear();
+        $data['Number'] = $card->getNumber();
+        $data['ExpiryMonth'] = $card->getExpiryMonth();
+        $data['ExpiryYear'] = $card->getExpiryYear();
         if ($card->getCvv()) {
-            $data['cvc'] = $card->getCvv();
+            $data['Cvv'] = $card->getCvv();
         }
-        $data['name'] = $card->getName();
-        $data['address_line1'] = $card->getAddress1();
-        $data['address_line2'] = $card->getAddress2();
-        $data['address_city'] = $card->getCity();
-        $data['address_zip'] = $card->getPostcode();
-        $data['address_state'] = $card->getState();
-        $data['address_country'] = $card->getCountry();
+        $data['FirstName'] = $card->getFirstName();
+        $data['LastName'] = $card->getLastName();
+        $data['BillingAddress'] = $card->getAddress1();
+        $data['BillingCity'] = $card->getCity();
+        $data['BillingPostalCode'] = $card->getPostcode();
+        $data['BillingState'] = $card->getState();
+        $data['BillingCountry'] = $card->getCountry();
         $data['email'] = $card->getEmail();
 
         return $data;
