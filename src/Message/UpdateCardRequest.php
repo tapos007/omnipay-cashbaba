@@ -1,32 +1,22 @@
 <?php
-
 /**
- * CashBaBa Update Credit Card Request.
+ * Created by PhpStorm.
+ * User: R041705033
+ * Date: 7/29/2018
+ * Time: 12:04 PM
  */
+
 namespace Omnipay\CashBaBa\Message;
 
-/**
- * CashBaBa Update Credit Card Request.
- *
- * If you need to update only some card details, like the billing
- * address or expiration date, you can do so without having to re-enter
- * the full card details. CashBaBa also works directly with card networks
- * so that your customers can continue using your service without
- * interruption.
- *
- * When you update a card, CashBaBa will automatically validate the card.
- *
- * This requires both a customerReference and a cardReference.
- *
- * @link https://CashBaBa.com/docs/api#update_card
- */
+
+use Omnipay\Common\Exception\InvalidRequestException;
+
 class UpdateCardRequest extends AbstractRequest
 {
     public function getData()
     {
         $this->validate('cardReference');
         $this->validate('customerReference');
-
         if ($this->getCard()) {
             return $this->getCardData();
         } else {
@@ -34,12 +24,32 @@ class UpdateCardRequest extends AbstractRequest
         }
     }
 
+
+    public function validate()
+    {
+        foreach (func_get_args() as $key) {
+            $value = $this->parameters->get($key);
+            if (! isset($value)) {
+                throw new InvalidRequestException("The $key parameter is required");
+            }
+            if($value==""){
+                throw new InvalidRequestException("The $key value is required");
+            }
+        }
+    }
+
+
+    public function getHttpMethod()
+    {
+        return 'PUT';
+    }
+
+
     public function getEndpoint()
     {
         return $this->endpoint.'/customers/'.$this->getCustomerReference().
             '/cards/'.$this->getCardReference();
     }
-
     /**
      * Get the card data.
      *
@@ -85,7 +95,6 @@ class UpdateCardRequest extends AbstractRequest
                 $data['address_country'] = $card->getCountry();
             }
         }
-
         return $data;
     }
 }

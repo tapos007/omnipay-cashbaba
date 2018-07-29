@@ -1,95 +1,78 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: R041705033
+ * Date: 7/29/2018
+ * Time: 3:59 PM
+ */
 
 namespace Omnipay\CashBaBa\Message;
-
-use Omnipay\Common\Exception\InvalidRequestException;
-use Omnipay\Common\Message\AbstractRequest;
-
 /**
- * CashBaba Purchase Request
+ * Stripe Purchase Request.
+ *
+ * To charge a credit card, you create a new charge object. If your API key
+ * is in test mode, the supplied card won't actually be charged, though
+ * everything else will occur as if in live mode. (Stripe assumes that the
+ * charge would have completed successfully).
+ *
+ * Example:
+ *
+ * <code>
+ *   // Create a gateway for the Stripe Gateway
+ *   // (routes to GatewayFactory::create)
+ *   $gateway = Omnipay::create('Stripe');
+ *
+ *   // Initialise the gateway
+ *   $gateway->initialize(array(
+ *       'apiKey' => 'MyApiKey',
+ *   ));
+ *
+ *   // Create a credit card object
+ *   // This card can be used for testing.
+ *   $card = new CreditCard(array(
+ *               'firstName'    => 'Example',
+ *               'lastName'     => 'Customer',
+ *               'number'       => '4242424242424242',
+ *               'expiryMonth'  => '01',
+ *               'expiryYear'   => '2020',
+ *               'cvv'          => '123',
+ *               'email'                 => 'customer@example.com',
+ *               'billingAddress1'       => '1 Scrubby Creek Road',
+ *               'billingCountry'        => 'AU',
+ *               'billingCity'           => 'Scrubby Creek',
+ *               'billingPostcode'       => '4999',
+ *               'billingState'          => 'QLD',
+ *   ));
+ *
+ *   // Do a purchase transaction on the gateway
+ *   $transaction = $gateway->purchase(array(
+ *       'amount'                   => '10.00',
+ *       'currency'                 => 'USD',
+ *       'description'              => 'This is a test purchase transaction.',
+ *       'card'                     => $card,
+ *   ));
+ *   $response = $transaction->send();
+ *   if ($response->isSuccessful()) {
+ *       echo "Purchase transaction was successful!\n";
+ *       $sale_id = $response->getTransactionReference();
+ *       echo "Transaction reference = " . $sale_id . "\n";
+ *   }
+ * </code>
+ *
+ * Because a purchase request in Stripe looks similar to an
+ * Authorize request, this class simply extends the AuthorizeRequest
+ * class and over-rides the getData method setting capture = true.
+ *
+ * @see \Omnipay\Stripe\Gateway
+ * @link https://stripe.com/docs/api#charges
  */
-class PurchaseRequest extends AbstractRequest
+
+class PurchaseRequest extends AuthorizeRequest
 {
-    public function getMerchantId()
-    {
-        return $this->getParameter('merchantId');
-    }
-
-    public function setMerchantId($value)
-    {
-        return $this->setParameter('merchantId', $value);
-    }
-
-    public function getMerchantKey()
-    {
-        return $this->getParameter('merchantKey');
-    }
-
-    public function setMerchantKey($value)
-    {
-        return $this->setParameter('merchantKey', $value);
-    }
-
-
-    public function setQuantity($value)
-    {
-        return $this->setParameter('quantity', $value);
-    }
-
-    public function setOrderId($value)
-    {
-        return $this->setParameter('orderId', $value);
-    }
-
-    public function setExpectedSettlementDate($value)
-    {
-        return $this->setParameter('expectedSettlementDate', $value);
-    }
-
-
-    public function getQuantity()
-    {
-        return $this->getParameter('quantity');
-    }
-
-    public function getOrderId()
-    {
-        return $this->getParameter('orderId');
-    }
-
-    public function getExpectedSettlementDate()
-    {
-        return $this->getParameter('expectedSettlementDate');
-    }
-
-
     public function getData()
     {
-
-        try {
-            $this->validate('amount', 'returnUrl');
-        } catch (InvalidRequestException $e) {
-        }
-
-        $data = array();
-
-        $data['MerchantId'] = $this->getMerchantId();
-        $data['MerchantKey'] = $this->getMerchantKey();
-        $data['NoOfItems'] = $this->getQuantity();
-        $data['OrderId'] = $this->getOrderId();
-        $data['OrderAmount'] = $this->getAmount();
-        $data['ExpectedSettlementDate'] = $this->getExpectedSettlementDate();
-        $data['ReturnUrl'] = $this->getReturnUrl();
-
-        if ($this->getTestMode()) {
-            $data['demo'] = 'Y';
-        }
-
+        $data = parent::getData();
+        $data['capture'] = 'true';
         return $data;
-    }
-
-    public function sendData($data)
-    {
-        return $this->response = new PurchaseResponse($this, $data);
     }
 }

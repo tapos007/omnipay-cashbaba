@@ -1,38 +1,36 @@
 <?php
-
-/**
- * CashBaBa Abstract Request.
- */
-
 namespace Omnipay\CashBaBa\Message;
-
-
+use Money\Currency;
+use Money\Money;
+use Money\Number;
+use Money\Parser\DecimalMoneyParser;
 use Omnipay\Common\Exception\InvalidRequestException;
+
 
 /**
  * CashBaBa Abstract Request.
  *
- * This is the parent class for all CashBaBa requests.
+ * This is the parent class for all Stripe requests.
  *
  * Test modes:
  *
- * CashBaBa accounts have test-mode API keys as well as live-mode
+ * Stripe accounts have test-mode API keys as well as live-mode
  * API keys. These keys can be active at the same time. Data
  * created with test-mode credentials will never hit the credit
  * card networks and will never cost anyone money.
  *
  * Unlike some gateways, there is no test mode endpoint separate
- * to the live mode endpoint, the CashBaBa API endpoint is the same
+ * to the live mode endpoint, the Stripe API endpoint is the same
  * for test and for live.
  *
  * Setting the testMode flag on this gateway has no effect.  To
  * use test mode just use your test mode API key.
  *
- * You can use any of the cards listed at https://CashBaBa.com/docs/testing
+ * You can use any of the cards listed at https://stripe.com/docs/testing
  * for testing.
  *
- * @see \Omnipay\CashBaBa\Gateway
- * @link https://CashBaBa.com/docs/api
+ * @see \Omnipay\Stripe\Gateway
+ * @link https://stripe.com/docs/api
  */
 abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 {
@@ -41,7 +39,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
      *
      * @var string URL
      */
-    protected $endpoint = 'https://api.CashBaBa.com/v1';
+    protected $endpoint = 'http://localhost:3000';
 
     /**
      * Get the gateway API Key.
@@ -117,9 +115,9 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
      *
      * @return mixed
      */
-    public function getConnectedCashBaBaAccountHeader()
+    public function getConnectedStripeAccountHeader()
     {
-        return $this->getParameter('connectedCashBaBaAccount');
+        return $this->getParameter('connectedStripeAccount');
     }
 
     /**
@@ -127,9 +125,9 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
      *
      * @return AbstractRequest
      */
-    public function setConnectedCashBaBaAccountHeader($value)
+    public function setConnectedStripeAccountHeader($value)
     {
-        return $this->setParameter('connectedCashBaBaAccount', $value);
+        return $this->setParameter('connectedStripeAccount', $value);
     }
 
     /**
@@ -172,14 +170,10 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
     public function getHeaders()
     {
         $headers = array();
+       // $headers['Accept'] = "application/json";
+        $headers['Accept'] = "application/json";
+        $headers['Content-Type'] = "application/json";
 
-        if ($this->getConnectedCashBaBaAccountHeader()) {
-            $headers['CashBaBa-Account'] = $this->getConnectedCashBaBaAccountHeader();
-        }
-
-        if ($this->getIdempotencyKeyHeader()) {
-            $headers['Idempotency-Key'] = $this->getIdempotencyKeyHeader();
-        }
 
         return $headers;
     }
@@ -191,10 +185,13 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
     {
         $headers = array_merge(
             $this->getHeaders(),
-            array('Authorization' => 'Basic ' . base64_encode($this->getApiKey() . ':'))
+            array(
+                'Authorization' => 'Basic ' . base64_encode($this->getApiKey() . ':'))
         );
 
-        $body = $data ? http_build_query($data, '', '&') : null;
+
+        $body = json_encode($data) ;
+
         $httpResponse = $this->httpClient->request($this->getHttpMethod(), $this->getEndpoint(), $headers, $body);
 
         return $this->createResponse($httpResponse->getBody()->getContents(), $httpResponse->getHeaders());
@@ -271,7 +268,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
     /**
      * Get the card data.
      *
-     * Because the CashBaBa gateway uses a common format for passing
+     * Because the stripe gateway uses a common format for passing
      * card data to the API, this function can be called to get the
      * data from the associated card object in the format that the
      * API requires.
@@ -302,4 +299,6 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 
         return $data;
     }
+
+
 }

@@ -1,20 +1,17 @@
 <?php
-
 /**
- * CashBaBa Response.
+ * Created by PhpStorm.
+ * User: R041705033
+ * Date: 7/28/2018
+ * Time: 2:27 PM
  */
+
 namespace Omnipay\CashBaBa\Message;
+
 
 use Omnipay\Common\Message\AbstractResponse;
 use Omnipay\Common\Message\RequestInterface;
 
-/**
- * CashBaBa Response.
- *
- * This is the response class for all CashBaBa requests.
- *
- * @see \Omnipay\CashBaBa\Gateway
- */
 class Response extends AbstractResponse
 {
     /**
@@ -23,19 +20,16 @@ class Response extends AbstractResponse
      * @var string URL
      */
     protected $requestId = null;
-
     /**
      * @var array
      */
     protected $headers = [];
-
     public function __construct(RequestInterface $request, $data, $headers = [])
     {
         $this->request = $request;
         $this->data = json_decode($data, true);
         $this->headers = $headers;
     }
-
     /**
      * Is the transaction successful?
      *
@@ -45,23 +39,34 @@ class Response extends AbstractResponse
     {
         return !isset($this->data['error']);
     }
-
     /**
      * Get the charge reference from the response of FetchChargeRequest.
      *
-     * @deprecated 2.3.3:3.0.0 duplicate of \Omnipay\CashBaBa\Message\Response::getTransactionReference()
-     * @see \Omnipay\CashBaBa\Message\Response::getTransactionReference()
+     * @deprecated 2.3.3:3.0.0 duplicate of \Omnipay\Stripe\Message\Response::getTransactionReference()
+     * @see \Omnipay\Stripe\Message\Response::getTransactionReference()
      * @return array|null
      */
     public function getChargeReference()
     {
-        if (isset($this->data['object']) && $this->data['object'] == 'charge') {
+        if (isset($this->data['object']) && 'charge' === $this->data['object']) {
             return $this->data['id'];
         }
-
         return null;
     }
-
+    /**
+     * Get the outcome of a charge from the response
+     *
+     * @return array|null
+     */
+    public function getOutcome()
+    {
+        if (isset($this->data['object']) && 'charge' === $this->data['object']) {
+            if (isset($this->data['outcome']) && !empty($this->data['outcome'])) {
+                return $this->data['outcome'];
+            }
+        }
+        return null;
+    }
     /**
      * Get the transaction reference.
      *
@@ -75,10 +80,8 @@ class Response extends AbstractResponse
         if (isset($this->data['error']) && isset($this->data['error']['charge'])) {
             return $this->data['error']['charge'];
         }
-
         return null;
     }
-
     /**
      * Get the balance transaction reference.
      *
@@ -95,10 +98,8 @@ class Response extends AbstractResponse
         if (isset($this->data['error']) && isset($this->data['error']['charge'])) {
             return $this->data['error']['charge'];
         }
-
         return null;
     }
-
     /**
      * Get a customer reference, for createCustomer requests.
      *
@@ -119,10 +120,8 @@ class Response extends AbstractResponse
                 return $this->data['customer'];
             }
         }
-
         return null;
     }
-
     /**
      * Get a card reference, for createCard or createCustomer requests.
      *
@@ -134,11 +133,10 @@ class Response extends AbstractResponse
             if (isset($this->data['default_source']) && !empty($this->data['default_source'])) {
                 return $this->data['default_source'];
             }
-
             if (isset($this->data['default_card']) && !empty($this->data['default_card'])) {
                 return $this->data['default_card'];
             }
-            
+
             if (!empty($this->data['id'])) {
                 return $this->data['id'];
             }
@@ -155,10 +153,8 @@ class Response extends AbstractResponse
                 }
             }
         }
-
         return null;
     }
-
     /**
      * Get a token, for createCard requests.
      *
@@ -169,10 +165,8 @@ class Response extends AbstractResponse
         if (isset($this->data['object']) && 'token' === $this->data['object']) {
             return $this->data['id'];
         }
-
         return null;
     }
-
     /**
      * Get the card data from the response.
      *
@@ -183,10 +177,8 @@ class Response extends AbstractResponse
         if (isset($this->data['card'])) {
             return $this->data['card'];
         }
-
         return null;
     }
-
     /**
      * Get the card data from the response of purchaseRequest.
      *
@@ -197,10 +189,8 @@ class Response extends AbstractResponse
         if (isset($this->data['source']) && $this->data['source']['object'] == 'card') {
             return $this->data['source'];
         }
-
         return null;
     }
-
     /**
      * Get the subscription reference from the response of CreateSubscriptionRequest.
      *
@@ -211,10 +201,8 @@ class Response extends AbstractResponse
         if (isset($this->data['object']) && $this->data['object'] == 'subscription') {
             return $this->data['id'];
         }
-
         return null;
     }
-
     /**
      * Get the event reference from the response of FetchEventRequest.
      *
@@ -225,10 +213,8 @@ class Response extends AbstractResponse
         if (isset($this->data['object']) && $this->data['object'] == 'event') {
             return $this->data['id'];
         }
-
         return null;
     }
-
     /**
      * Get the invoice reference from the response of FetchInvoiceRequest.
      *
@@ -239,10 +225,8 @@ class Response extends AbstractResponse
         if (isset($this->data['object']) && $this->data['object'] == 'invoice') {
             return $this->data['id'];
         }
-
         return null;
     }
-
     /**
      * Get the transfer reference from the response of CreateTransferRequest,
      * UpdateTransferRequest, and FetchTransferRequest.
@@ -254,10 +238,8 @@ class Response extends AbstractResponse
         if (isset($this->data['object']) && $this->data['object'] == 'transfer') {
             return $this->data['id'];
         }
-
         return null;
     }
-
     /**
      * Get the transfer reference from the response of CreateTransferReversalRequest,
      * UpdateTransferReversalRequest, and FetchTransferReversalRequest.
@@ -269,10 +251,8 @@ class Response extends AbstractResponse
         if (isset($this->data['object']) && $this->data['object'] == 'transfer_reversal') {
             return $this->data['id'];
         }
-
         return null;
     }
-
     /**
      * Get the list object from a result
      *
@@ -283,10 +263,8 @@ class Response extends AbstractResponse
         if (isset($this->data['object']) && $this->data['object'] == 'list') {
             return $this->data['data'];
         }
-
         return null;
     }
-
     /**
      * Get the subscription plan from the response of CreateSubscriptionRequest.
      *
@@ -299,10 +277,8 @@ class Response extends AbstractResponse
         } elseif (array_key_exists('object', $this->data) && $this->data['object'] == 'plan') {
             return $this->data;
         }
-
         return null;
     }
-
     /**
      * Get plan id
      *
@@ -311,14 +287,11 @@ class Response extends AbstractResponse
     public function getPlanId()
     {
         $plan = $this->getPlan();
-
         if ($plan && array_key_exists('id', $plan)) {
             return $plan['id'];
         }
-
         return null;
     }
-
     /**
      * Get invoice-item reference
      *
@@ -329,10 +302,8 @@ class Response extends AbstractResponse
         if (isset($this->data['object']) && $this->data['object'] == 'invoiceitem') {
             return $this->data['id'];
         }
-
         return null;
     }
-
     /**
      * Get the error message from the response.
      *
@@ -345,10 +316,8 @@ class Response extends AbstractResponse
         if (!$this->isSuccessful() && isset($this->data['error']) && isset($this->data['error']['message'])) {
             return $this->data['error']['message'];
         }
-
         return null;
     }
-
     /**
      * Get the error message from the response.
      *
@@ -361,10 +330,9 @@ class Response extends AbstractResponse
         if (!$this->isSuccessful() && isset($this->data['error']) && isset($this->data['error']['code'])) {
             return $this->data['error']['code'];
         }
-
         return null;
     }
-    
+
     /**
      * @return string|null
      */
@@ -373,7 +341,6 @@ class Response extends AbstractResponse
         if (isset($this->headers['Request-Id'])) {
             return $this->headers['Request-Id'][0];
         }
-
         return null;
     }
 }

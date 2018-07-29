@@ -1,48 +1,48 @@
 {
-  "name": "omnipay/cashbaba",
-  "description": "CashBaba Driver for the Omnipay payment processing library",
-  "type": "library",
-  "keywords": [
-    "cashbaba",
-    "payment gateway",
-    "gateway",
-    "merchant",
-    "omnipay",
-    "pay",
-    "payment"
-  ],
-  "homepage": "https://github.com/tapos007/omnipay-cashbaba",
-  "license": "MIT",
-  "authors": [
-    {
-      "name": "tapos ghosh",
-      "email": "tapos.aa@gmail.com"
+    "name": "omnipay/cashbaba",
+    "type": "library",
+    "description": "Stripe driver for the Omnipay payment processing library",
+    "keywords": [
+        "gateway",
+        "merchant",
+        "omnipay",
+        "pay",
+        "payment",
+        "stripe"
+    ],
+    "homepage": "https://github.com/tapos007/omnipay-cashbaba",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "tapos ghosh",
+            "email": "tapos.aa@gmail.com"
+        },
+        {
+            "name": "Mohammad Sharif",
+            "email": "sharif0025@gmail.com"
+        },
+        {
+            "name": "MD Sumon Mia",
+            "email": "sumon@r-cis.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Omnipay\\CashBaBa\\": "src/"
+        }
     },
-    {
-      "name": "Mohammad Sharif",
-      "email": "sharif0025@gmail.com"
+    "require": {
+        "omnipay/common": "^3"
     },
-    {
-      "name": "MD Sumon Mia",
-      "email": "sumon@r-cis.com"
-    }
-  ],
-  "autoload": {
-    "psr-4": { "Omnipay\\CashBaBa\\" : "src/" },
-    "classmap": [
-      "src/"
-    ]
-  },
-   "require": {
-     "omnipay/common": "^3"
-   },
-  "require-dev": {
-    "omnipay/tests": "^3",
-    "squizlabs/php_codesniffer": "^3"
-  },
-  "extra": {
-    "branch-alias": {
-      "dev-master": "3.0.x-dev"
-    }
-  }
+    "require-dev": {
+        "omnipay/tests": "^3",
+        "squizlabs/php_codesniffer": "^3",
+        "phpro/grumphp": "^0.14"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "3.0.x-dev"
+        }
+    },
+    "prefer-stable": true
 }

@@ -3,12 +3,15 @@
 /**
  * CashBaBa Create Credit Card Request.
  */
+
 namespace Omnipay\CashBaBa\Message;
+
+
 
 /**
  * CashBaBa Create Credit Card Request.
  *
- * In the CashBaBa system, creating a credit card requires passing
+ * In the stripe system, creating a credit card requires passing
  * a customer ID.  The card is then added to the customer's account.
  * If the customer has no default card then the newly added
  * card becomes the customer's default card.
@@ -49,7 +52,6 @@ namespace Omnipay\CashBaBa\Message;
  *   $response = $gateway->createCard(array(
  *       'card'              => $new_card,
  *       'customerReference' => $customer_id,
- *       'marchant_id' => $customer_id,
  *   ))->send();
  *   if ($response->isSuccessful()) {
  *       echo "Gateway createCard was successful.\n";
@@ -60,19 +62,19 @@ namespace Omnipay\CashBaBa\Message;
  * </code>
  *
  * @see CreateCustomerRequest
- * @link https://CashBaBa.com/docs/api#create_card
+ * @link https://stripe.com/docs/api#create_card
  */
 class CreateCardRequest extends AbstractRequest
 {
+
+
     public function getData()
     {
         $data = array();
-
         // Only set the description if we are creating a new customer.
         if (!$this->getCustomerReference()) {
             $data['description'] = $this->getDescription();
         }
-
         if ($this->getSource()) {
             $data['source'] = $this->getSource();
         } elseif ($this->getCardReference()) {
@@ -88,22 +90,27 @@ class CreateCardRequest extends AbstractRequest
             }
         } else {
             // one of token or card is required
-            $this->validate('source');
+            try {
+                $this->validate('source');
+            } catch (InvalidRequestException $e) {
+            }
         }
-
         return $data;
     }
-
     public function getEndpoint()
     {
-        return $this->endpoint.'/addCards';
+        if ($this->getCustomerReference()) {
+            // Create a new card on an existing customer
+            return $this->endpoint.'/customers/'.
+                $this->getCustomerReference().'/cards';
+        }
+        // Create a new customer and card
+        return $this->endpoint.'/customers';
     }
-
     public function getCardData()
     {
         $data = parent::getCardData();
         unset($data['email']);
-
         return $data;
     }
 }
