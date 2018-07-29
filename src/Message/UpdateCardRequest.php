@@ -41,7 +41,7 @@ class UpdateCardRequest extends AbstractRequest
 
     public function getHttpMethod()
     {
-        return 'PUT';
+        return 'POST';
     }
 
 
@@ -65,34 +65,34 @@ class UpdateCardRequest extends AbstractRequest
         $card = $this->getCard();
         if (!empty($card)) {
             if ($card->getExpiryMonth()) {
-                $data['exp_month'] = $card->getExpiryMonth();
+                $data['ExpiryMonth'] = $card->getExpiryMonth();
             }
             if ($card->getExpiryYear()) {
-                $data['exp_year'] = $card->getExpiryYear();
+                $data['ExpiryYear'] = $card->getExpiryYear();
             }
-            if ($card->getName()) {
-                $data['name'] = $card->getName();
+            if ($card->getFirstName()) {
+                $data['FirstName'] = $card->getFirstName();
+            }
+            if ($card->getLastName()) {
+                $data['LastName'] = $card->getLastName();
             }
             if ($card->getNumber()) {
                 $data['number'] = $card->getNumber();
             }
             if ($card->getAddress1()) {
-                $data['address_line1'] = $card->getAddress1();
-            }
-            if ($card->getAddress2()) {
-                $data['address_line2'] = $card->getAddress2();
+                $data['BillingAddress'] = $card->getAddress1();
             }
             if ($card->getCity()) {
-                $data['address_city'] = $card->getCity();
+                $data['BillingCity'] = $card->getCity();
             }
             if ($card->getPostcode()) {
-                $data['address_zip'] = $card->getPostcode();
+                $data['BillingPostalCode'] = $card->getPostcode();
             }
             if ($card->getState()) {
-                $data['address_state'] = $card->getState();
+                $data['BillingState'] = $card->getState();
             }
             if ($card->getCountry()) {
-                $data['address_country'] = $card->getCountry();
+                $data['BillingCountry'] = $card->getCountry();
             }
         }
         return $data;
