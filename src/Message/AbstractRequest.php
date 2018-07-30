@@ -186,7 +186,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         $headers = array_merge(
             $this->getHeaders(),
             array(
-                'Authorization' => 'Basic ' . base64_encode($this->getApiKey() . ':'))
+                'Authorization' => 'Basic' . base64_encode($this->getApiKey() ))
         );
 
 

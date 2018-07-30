@@ -37,7 +37,8 @@ class Response extends AbstractResponse
      */
     public function isSuccessful()
     {
-        return !isset($this->data['error']);
+
+        return !isset($this->data['Error']);
     }
     /**
      * Get the charge reference from the response of FetchChargeRequest.
@@ -313,8 +314,8 @@ class Response extends AbstractResponse
      */
     public function getMessage()
     {
-        if (!$this->isSuccessful() && isset($this->data['error']) && isset($this->data['error']['message'])) {
-            return $this->data['error']['message'];
+        if (!$this->isSuccessful() && isset($this->data['Error']) && isset($this->data['Error']['Message'])) {
+            return $this->data['Error']['Message'];
         }
         return null;
     }
@@ -327,8 +328,9 @@ class Response extends AbstractResponse
      */
     public function getCode()
     {
-        if (!$this->isSuccessful() && isset($this->data['error']) && isset($this->data['error']['code'])) {
-            return $this->data['error']['code'];
+
+        if (!$this->isSuccessful() && isset($this->data['Error']) && isset($this->data['Error']['Code'])) {
+            return $this->data['Error']['code'];
         }
         return null;
     }

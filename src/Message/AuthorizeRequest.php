@@ -70,6 +70,8 @@ use Money\Formatter\DecimalMoneyFormatter;
  */
 class AuthorizeRequest extends AbstractRequest
 {
+
+    protected $endpoint = 'http://localhost:62048/api/transactions';
     /**
      * @return mixed
      */
@@ -129,6 +131,41 @@ class AuthorizeRequest extends AbstractRequest
     {
         return $this->getParameter('onBehalfOf');
     }
+
+
+    /**
+     * Connect only
+     *
+     * @return mixed
+     */
+    public function getOrderId()
+    {
+        return $this->getParameter('order_id');
+    }
+
+
+    public function setOrderId($value)
+    {
+        return $this->setParameter('order_id',$value);
+    }
+
+
+    /**
+     * Connect only
+     *
+     * @return mixed
+     */
+    public function getCVV()
+    {
+        return $this->getParameter('cvv');
+    }
+
+
+    public function setCVV($value)
+    {
+        return $this->setParameter('cvv',$value);
+    }
+
     /**
      * @param string $value
      *

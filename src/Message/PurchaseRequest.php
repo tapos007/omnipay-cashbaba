@@ -7,6 +7,8 @@
  */
 
 namespace Omnipay\CashBaBa\Message;
+use Omnipay\Common\Exception\InvalidRequestException;
+
 /**
  * Stripe Purchase Request.
  *
@@ -69,10 +71,45 @@ namespace Omnipay\CashBaBa\Message;
 
 class PurchaseRequest extends AuthorizeRequest
 {
+
+
+    public function getEndpoint()
+    {
+        return $this->endpoint.'/purchase';
+    }
+
     public function getData()
     {
-        $data = parent::getData();
+        $this->validate('amount', 'currency','order_id','cardReference','customerReference','cvv');
+        $data = array();
+        $data['TransactionAmount'] = $this->getAmountInteger();
+        $data['CurrencyCode'] = strtolower($this->getCurrency());
         $data['capture'] = 'true';
+        if ($this->getOrderId()) {
+            $data['OrderId'] = $this->getOrderId();
+        }
+        if ($this->getCustomerReference()) {
+            $data['customerReference'] = $this->getCustomerReference();
+        }
+        if($this->getCardReference()){
+            $data['CardToken'] = $this->getCardReference();
+        }
+        if($this->getCVV()){
+            $data['CVV'] = $this->getCVV();
+        }
         return $data;
+    }
+
+    public function validate()
+    {
+        foreach (func_get_args() as $key) {
+            $value = $this->parameters->get($key);
+            if (! isset($value)) {
+                throw new InvalidRequestException("The $key parameter is required");
+            }
+            if($value==""){
+                throw new InvalidRequestException("The $key value is required");
+            }
+        }
     }
 }
