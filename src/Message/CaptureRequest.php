@@ -35,13 +35,21 @@ class CaptureRequest extends AbstractRequest
     {
         $this->validate('transactionReference');
         $data = array();
-        if ($amount = $this->getAmountInteger()) {
-            $data['amount'] = $amount;
+        // $data['amount'] = $this->getAmountInteger();
+        if ($this->getTransactionReference()) {
+            $data['transactionId'] = $this->getTransactionReference();
         }
+//        if ($this->getReverseTransfer()) {
+//            $data['reverse_transfer'] = 'true';
+//        }
         return $data;
+    }
+    public function getHttpMethod()
+    {
+        return 'GET';
     }
     public function getEndpoint()
     {
-        return $this->endpoint.'/charges/'.$this->getTransactionReference().'/capture';
+        return $this->endpoint.'/transactions/'.$this->getTransactionReference().'/capture';
     }
 }

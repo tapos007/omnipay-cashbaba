@@ -39,13 +39,12 @@ namespace Omnipay\CashBaBa\Message;
 
 class VoidRequest extends RefundRequest
 {
-    public function getData()
+    public function getHttpMethod()
     {
-        $this->validate('transactionReference');
-        $data = array();
-        if ($this->getRefundApplicationFee()) {
-            $data['refund_application_fee'] = 'true';
-        }
-        return $data;
+        return 'GET';
+    }
+    public function getEndpoint()
+    {
+        return $this->endpoint.'/transactions/'.$this->getTransactionReference().'/void';
     }
 }
