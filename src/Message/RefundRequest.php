@@ -108,19 +108,24 @@ class RefundRequest extends AbstractRequest
     }
     public function getData()
     {
-        $this->validate('transactionReference', 'amount');
+        $this->validate('transactionReference');
         $data = array();
-        $data['amount'] = $this->getAmountInteger();
-        if ($this->getRefundApplicationFee()) {
-            $data['refund_application_fee'] = 'true';
+       // $data['amount'] = $this->getAmountInteger();
+        if ($this->getTransactionReference()) {
+            $data['transactionId'] = $this->getTransactionReference();
         }
-        if ($this->getReverseTransfer()) {
-            $data['reverse_transfer'] = 'true';
-        }
+//        if ($this->getReverseTransfer()) {
+//            $data['reverse_transfer'] = 'true';
+//        }
         return $data;
+    }
+
+    public function getHttpMethod()
+    {
+        return 'GET';
     }
     public function getEndpoint()
     {
-        return $this->endpoint.'/charges/'.$this->getTransactionReference().'/refund';
+        return $this->endpoint.'/transactions/'.$this->getTransactionReference().'/refund';
     }
 }
