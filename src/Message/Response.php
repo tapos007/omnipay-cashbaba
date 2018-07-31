@@ -38,7 +38,7 @@ class Response extends AbstractResponse
     public function isSuccessful()
     {
 
-        return !isset($this->data['Error']);
+        return !isset($this->data['Error']) && !isset($this->data['Message']);
     }
     /**
      * Get the charge reference from the response of FetchChargeRequest.
@@ -108,17 +108,17 @@ class Response extends AbstractResponse
      */
     public function getCustomerReference()
     {
-        if (isset($this->data['object']) && 'customer' === $this->data['object']) {
+        if (isset($this->data['Object']) && 'customer' === $this->data['Object']) {
             return $this->data['id'];
         }
-        if (isset($this->data['object']) && 'card' === $this->data['object']) {
-            if (!empty($this->data['customer'])) {
-                return $this->data['customer'];
+        if (isset($this->data['Object']) && 'card' === $this->data['Object']) {
+            if (!empty($this->data['Customer'])) {
+                return $this->data['Customer'];
             }
         }
         if (isset($this->data['object']) && 'charge' === $this->data['object']) {
-            if (!empty($this->data['customer'])) {
-                return $this->data['customer'];
+            if (!empty($this->data['Customer'])) {
+                return $this->data['Customer'];
             }
         }
         return null;
@@ -142,9 +142,9 @@ class Response extends AbstractResponse
                 return $this->data['id'];
             }
         }
-        if (isset($this->data['object']) && 'card' === $this->data['object']) {
-            if (!empty($this->data['id'])) {
-                return $this->data['id'];
+        if (isset($this->data['Object']) && 'card' === $this->data['Object']) {
+            if (!empty($this->data['CardToken'])) {
+                return $this->data['CardToken'];
             }
         }
         if (isset($this->data['object']) && 'charge' === $this->data['object']) {
@@ -314,8 +314,16 @@ class Response extends AbstractResponse
      */
     public function getMessage()
     {
-        if (!$this->isSuccessful() && isset($this->data['Error']) && isset($this->data['Error']['Message'])) {
-            return $this->data['Error']['Message'];
+        if (!$this->isSuccessful() && ((isset($this->data['Error']) && isset($this->data['Error']['Message'])) || isset($this->data['Message']))) {
+
+           if(isset($this->data['Error'])){
+               return $this->data['Error']['Message'];
+           }
+
+           if(isset($this->data['Message'])){
+               return $this->data['Message'];
+           }
+
         }
         return null;
     }
