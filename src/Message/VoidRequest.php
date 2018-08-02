@@ -8,9 +8,9 @@
 
 namespace Omnipay\CashBaBa\Message;
 /**
- * Stripe Void Request.
+ * CashBaBa Void Request.
  *
- * Stripe does not support voiding, per se, but
+ * CashBaBa does not support voiding, per se, but
  * we treat it as a full refund.
  *
  * See RefundRequest for additional information
@@ -33,8 +33,7 @@ namespace Omnipay\CashBaBa\Message;
  * </code>
  *
  * @see RefundRequest
- * @see Omnipay\Stripe\Gateway
- * @link https://stripe.com/docs/api#create_refund
+ * @see Omnipay\cashbaba\Gateway
  */
 
 class VoidRequest extends RefundRequest

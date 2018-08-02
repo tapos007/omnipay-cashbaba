@@ -10,27 +10,21 @@ use Omnipay\Common\Exception\InvalidRequestException;
 /**
  * CashBaBa Abstract Request.
  *
- * This is the parent class for all Stripe requests.
+ * This is the parent class for all CashBaBa requests.
  *
  * Test modes:
  *
- * Stripe accounts have test-mode API keys as well as live-mode
+ * CashBaBa accounts have test-mode API keys as well as live-mode
  * API keys. These keys can be active at the same time. Data
  * created with test-mode credentials will never hit the credit
  * card networks and will never cost anyone money.
  *
  * Unlike some gateways, there is no test mode endpoint separate
- * to the live mode endpoint, the Stripe API endpoint is the same
+ * to the live mode endpoint, the CashBaBa API endpoint is the same
  * for test and for live.
  *
  * Setting the testMode flag on this gateway has no effect.  To
  * use test mode just use your test mode API key.
- *
- * You can use any of the cards listed at https://stripe.com/docs/testing
- * for testing.
- *
- * @see \Omnipay\Stripe\Gateway
- * @link https://stripe.com/docs/api
  */
 abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 {
@@ -270,7 +264,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
     /**
      * Get the card data.
      *
-     * Because the stripe gateway uses a common format for passing
+     * Because the CashBaBa gateway uses a common format for passing
      * card data to the API, this function can be called to get the
      * data from the associated card object in the format that the
      * API requires.

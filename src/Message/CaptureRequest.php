@@ -9,7 +9,7 @@
 namespace Omnipay\CashBaBa\Message;
 
 /**
- * Stripe Capture Request.
+ * CashBaBa Capture Request.
  *
  * Use this request to capture and process a previously created authorization.
  *

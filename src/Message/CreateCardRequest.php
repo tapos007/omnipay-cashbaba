@@ -11,7 +11,7 @@ use Omnipay\Common\Exception\InvalidRequestException;
 /**
  * CashBaBa Create Credit Card Request.
  *
- * In the stripe system, creating a credit card requires passing
+ * In the CashBaba system, creating a credit card requires passing
  * a customer ID.  The card is then added to the customer's account.
  * If the customer has no default card then the newly added
  * card becomes the customer's default card.
@@ -62,7 +62,6 @@ use Omnipay\Common\Exception\InvalidRequestException;
  * </code>
  *
  * @see CreateCustomerRequest
- * @link https://stripe.com/docs/api#create_card
  */
 class CreateCardRequest extends AbstractRequest
 {

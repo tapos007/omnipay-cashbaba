@@ -9,7 +9,7 @@
 namespace Omnipay\CashBaBa\Message;
 
 /**
- * Stripe Refund Request.
+ * CashBaBa Refund Request.
  *
  * When you create a new refund, you must specify a
  * charge to create it on.
@@ -48,8 +48,6 @@ namespace Omnipay\CashBaBa\Message;
  * </code>
  *
  * @see PurchaseRequest
- * @see \Omnipay\Stripe\Gateway
- * @link https://stripe.com/docs/api#create_refund
  */
 class RefundRequest extends AbstractRequest
 {
@@ -63,7 +61,6 @@ class RefundRequest extends AbstractRequest
     /**
      * Whether to refund the application fee associated with a charge.
      *
-     * From the {@link https://stripe.com/docs/api#create_refund Stripe docs}:
      * Boolean indicating whether the application fee should be refunded
      * when refunding this charge. If a full charge refund is given, the
      * full application fee will be refunded. Else, the application fee
@@ -89,7 +86,6 @@ class RefundRequest extends AbstractRequest
     /**
      * Whether to refund the application fee associated with a charge.
      *
-     * From the {@link https://stripe.com/docs/connect/destination-charges#issuing-refunds Stripe docs}:
      * Charges created on the platform account can be refunded using the
      * platform account's secret key. When refunding a charge that has a
      * `destination[account]`, by default the destination account keeps the

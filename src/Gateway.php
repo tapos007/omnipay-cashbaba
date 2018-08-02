@@ -43,13 +43,13 @@ class Gateway extends  AbstractGateway
      * Authentication is by means of a single secret API key set as
      * the apiKey parameter when creating the gateway object.
      *
-     * Stripe accounts have test-mode API keys as well as live-mode
+     * CashBaBa accounts have test-mode API keys as well as live-mode
      * API keys. These keys can be active at the same time. Data
      * created with test-mode credentials will never hit the credit
      * card networks and will never cost anyone money.
      *
      * Unlike some gateways, there is no test mode endpoint separate
-     * to the live mode endpoint, the Stripe API endpoint is the same
+     * to the live mode endpoint, the CashBaba API endpoint is the same
      * for test and for live.
      *
      * Setting the testMode flag on this gateway has no effect.  To
@@ -92,15 +92,15 @@ class Gateway extends  AbstractGateway
      *
      * If you need to update only some card details, like the billing
      * address or expiration date, you can do so without having to re-enter
-     * the full card details. Stripe also works directly with card networks
+     * the full card details. CashBaba also works directly with card networks
      * so that your customers can continue using your service without
      * interruption.
      *
-     * When you update a card, Stripe will automatically validate the card.
+     * When you update a card, CashBaba will automatically validate the card.
      *
      * This requires both a customerReference and a cardReference.
      *
-     * @link https://stripe.com/docs/api#update_card
+
      *
      * @param array $parameters
      *
@@ -162,7 +162,7 @@ class Gateway extends  AbstractGateway
      * is passed in then the cardReference must be the reference of a card
      * assigned to the customer.  Otherwise, if you do not pass a customer ID,
      * the card you provide must either be a token, like the ones returned by
-     * Stripe.js, or a dictionary containing a user's credit card details.
+     * CashBaba.js, or a dictionary containing a user's credit card details.
      *
      * IN OTHER WORDS: You cannot just pass a card reference into this request,
      * you must also provide a customer reference if you want to use a stored
@@ -200,14 +200,14 @@ class Gateway extends  AbstractGateway
      *
      * To charge a credit card, you create a new charge object. If your API key
      * is in test mode, the supplied card won't actually be charged, though
-     * everything else will occur as if in live mode. (Stripe assumes that the
+     * everything else will occur as if in live mode. (CashBaba assumes that the
      * charge would have completed successfully).
      *
      * Either a customerReference or a card is required.  If a customerReference
      * is passed in then the cardReference must be the reference of a card
      * assigned to the customer.  Otherwise, if you do not pass a customer ID,
      * the card you provide must either be a token, like the ones returned by
-     * Stripe.js, or a dictionary containing a user's credit card details.
+     * CashBaba.js, or a dictionary containing a user's credit card details.
      *
      * IN OTHER WORDS: You cannot just pass a card reference into this request,
      * you must also provide a customer reference if you want to use a stored
