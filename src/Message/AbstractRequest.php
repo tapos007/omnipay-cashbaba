@@ -33,7 +33,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
      *
      * @var string URL
      */
-    protected $endpoint = 'http://localhost:62048/api';
+    protected $endpoint = 'https://developer.cashbaba.com.bd/api';
 
     /**
      * Get the gateway API Key.
@@ -180,8 +180,13 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         $headers = array_merge(
             $this->getHeaders(),
             array(
-                'Authorization' => 'Basic' . base64_encode($this->getApiKey() ))
+                'Authorization' => 'Basic' . base64_encode($this->getApiKey() )
+            )
+
         );
+        $headers['curl.options'] = [
+            CURLOPT_SSLVERSION => CURL_SSLVERSION_TLSv1_2
+        ];
 
 
        $body = json_encode($data) ;
