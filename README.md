@@ -1,10 +1,10 @@
-# Omnipay: Stripe
+# Omnipay: CashBaBa
 
 **CashBaBa Payment Gateway driver for the Omnipay PHP payment processing library**
 
 
 [Omnipay](https://github.com/thephpleague/omnipay) is a framework agnostic, multi-gateway payment
-processing library for PHP. This package implements Stripe support for Omnipay.
+processing library for PHP. This package implements CashBaBa support for Omnipay.
 
 ## Installation
 
@@ -23,7 +23,7 @@ The following gateways are provided by this package:
 For general usage instructions, please see the main [Omnipay](https://github.com/thephpleague/omnipay)
 repository.
 
-### Stripe.js
+### CashBaBa.js
 
 The Cashbaba integration is fairly straight forward. Essentially you just pass
 a `card token` field through to Cashbaba instead of the regular credit card data.
