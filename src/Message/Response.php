@@ -352,4 +352,21 @@ class Response extends AbstractResponse
         }
         return null;
     }
+
+
+    /**
+     * Get the response of delete card.
+     *
+     * @return string|null
+     */
+    public function getCardorCustomerDeleteResponse()
+    {
+        if (isset($this->data['Object']) && $this->data['Object'] == 'deletecard') {
+            return $this->data['Information'];
+        }
+        if (isset($this->data['Object']) && $this->data['Object'] == 'deletecustomer') {
+            return $this->data['Information'];
+        }
+        return null;
+    }
 }

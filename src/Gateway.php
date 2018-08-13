@@ -69,6 +69,101 @@ class Gateway extends  AbstractGateway
     /**
      * Create Card.
      *
+     *
+     * api call for new customer with card
+     *
+     *  <code>
+     *      $gateway = Omnipay::create('CashBaBa');
+     *      $gateway->setApiKey('c+h1cMVyy9');
+     *
+     *      $new_card = new CreditCard(array(
+     *          'firstName'    => 'Example',
+     *          'lastName'     => 'Customer',
+     *          'number'       => '344014247053081',
+     *          'expiryMonth'  => '01',
+     *          'expiryYear'   => '2020',
+     *          'cvv'          => '456',
+     *          'email'                 => 'customer@example.com',
+     *          'billingAddress1'       => '1 Lower Creek Road',
+     *          'billingCountry'        => 'AU',
+     *          'billingCity'           => 'Upper Swan',
+     *          'billingPostcode'       => '6999',
+     *          'billingState'          => 'WA',
+     *      ));
+     *
+     *      try{
+     *          $result = $gateway->createCard(array(
+     *          'card' => $new_card,
+     *          ))->send();
+     *
+     *          if($result->isSuccessful()){
+     *
+     *              $card_id = $result->getCardReference();
+     *              $card_customer = $result->getCustomerReference();
+     *              echo "card_id:".$card_id;
+     *              echo "card_customer:".$card_customer;
+     *
+     *          }else{
+     *
+     *              echo $result->getMessage();
+     *          }
+     *      }catch (Exception $e){
+     *
+     *          echo $e->getMessage();
+     *      }
+     *
+     * </code>
+     *
+     *
+     * create card with existing customer
+     *
+     *
+     *
+     * api call for new customer with card
+     *
+     *  <code>
+     *      $gateway = Omnipay::create('CashBaBa');
+     *      $gateway->setApiKey('c+h1cMVyy9');
+     *
+     *      $new_card = new CreditCard(array(
+     *          'firstName'    => 'Example',
+     *          'lastName'     => 'Customer',
+     *          'number'       => '344014247053081',
+     *          'expiryMonth'  => '01',
+     *          'expiryYear'   => '2020',
+     *          'cvv'          => '456',
+     *          'email'                 => 'customer@example.com',
+     *          'billingAddress1'       => '1 Lower Creek Road',
+     *          'billingCountry'        => 'AU',
+     *          'billingCity'           => 'Upper Swan',
+     *          'billingPostcode'       => '6999',
+     *          'billingState'          => 'WA',
+     *      ));
+     *
+     *      try{
+     *          $result = $gateway->createCard(array(
+     *          'card' => $new_card,
+     *          'cardReference' => "2",
+     *          ))->send();
+     *
+     *          if($result->isSuccessful()){
+     *
+     *              $card_id = $result->getCardReference();
+     *              $card_customer = $result->getCustomerReference();
+     *              echo "card_id:".$card_id;
+     *              echo "card_customer:".$card_customer;
+     *
+     *          }else{
+     *
+     *              echo $result->getMessage();
+     *          }
+     *      }catch (Exception $e){
+     *
+     *          echo $e->getMessage();
+     *      }
+     *
+     * </code>
+
      * This call can be used to create a new customer or add a card
      * to an existing customer.  If a customerReference is passed in then
      * a card is added to an existing customer.  If there is no
@@ -95,7 +190,51 @@ class Gateway extends  AbstractGateway
      * the full card details. CashBaba also works directly with card networks
      * so that your customers can continue using your service without
      * interruption.
+     * * api call for new customer with card
      *
+     *  <code>
+     *      $gateway = Omnipay::create('CashBaBa');
+     *      $gateway->setApiKey('c+h1cMVyy9');
+     *
+     *      $new_card = new CreditCard(array(
+     *          'firstName'    => // complete if you change it ,
+     *          'lastName'     => '// complete if you change it,
+     *          'number'       => // complete if you change it,
+     *          'expiryMonth'  => // complete if you change it,
+     *          'expiryYear'   => // complete if you change it,
+     *          'cvv'          => // complete if you change it,
+     *          'email'                 => // complete if you change it,
+     *          'billingAddress1'       => // complete if you change it,
+     *          'billingCountry'        => // complete if you change it
+     *          'billingCity'           => // complete if you change it,
+     *          'billingPostcode'       => '// complete if you change it,
+     *          'billingState'          => // complete if you change it,
+     *      ));
+     *
+     *      try{
+     *          $result = $gateway->updateCard(array(
+     *              'card' => $new_card,
+     *              'customerReference' => "2",
+     *              'cardReference' => "6acc8ff1-bcee-4526-908a-8a2bf5306a51",
+     *          ))->send();
+     *
+     *          if($result->isSuccessful()){
+     *
+     *              $card_id = $result->getCardReference();
+     *              $card_customer = $result->getCustomerReference();
+     *              echo "card_id:".$card_id;
+     *              echo "card_customer:".$card_customer;
+     *
+     *          }else{
+     *
+     *              echo $result->getMessage();
+     *          }
+     *      }catch (Exception $e){
+     *
+     *          echo $e->getMessage();
+     *      }
+     *
+     * </code>
      * When you update a card, CashBaba will automatically validate the card.
      *
      * This requires both a customerReference and a cardReference.
@@ -120,23 +259,48 @@ class Gateway extends  AbstractGateway
      * This is normally used to delete a credit card from an existing
      * customer.
      *
-     * You can delete cards from a customer or recipient. If you delete a
-     * card that is currently the default card on a customer or recipient,
-     * the most recently added card will be used as the new default. If you
-     * delete the last remaining card on a customer or recipient, the
-     * default_card attribute on the card's owner will become null.
+     * You can delete cards from a existing customer or you can delete your
+     * existing customer
      *
-     * Note that for cards belonging to customers, you may want to prevent
-     * customers on paid subscriptions from deleting all cards on file so
-     * that there is at least one default card for the next invoice payment
-     * attempt.
+     * Delete card API call
+     * <code>
+     * $gateway = Omnipay::create('CashBaBa');
+     * $gateway->setApiKey('abc123');
+     * try{
+     *       $result = $gateway->deleteCard(array(
+     *           'customerReference' => "2",
+     *           'cardReference' => "6acc8ff1-bcee-4526-908a-8a2bf5306a51",
+     *       ))->send();
+     *      if($result->isSuccessful()){
+     *           echo $result->getCardorCustomerDeleteResponse();
+     *       }else{
+     *           echo $result->getMessage();
+     *       }
+     *   }catch (Exception $e){
+     *       echo $e->getMessage();
+     *   }
+     * </code>
      *
-     * In deference to the previous incarnation of this gateway, where
-     * all CreateCard requests added a new customer and the customer ID
-     * was used as the card ID, if a cardReference is passed in but no
-     * customerReference then we assume that the cardReference is in fact
-     * a customerReference and delete the customer.  This might be
-     * dangerous but it's the best way to ensure backwards compatibility.
+     *
+     *
+     * * Delete Customer API call
+     * <code>
+     * $gateway = Omnipay::create('CashBaBa');
+     * $gateway->setApiKey('abc123');
+     * try{
+     *       $result = $gateway->deleteCard(array(
+     *           'customerReference' => "2",
+     *       ))->send();
+     *      if($result->isSuccessful()){
+     *           echo $result->getCardorCustomerDeleteResponse();
+     *       }else{
+     *           echo $result->getMessage();
+     *       }
+     *   }catch (Exception $e){
+     *       echo $e->getMessage();
+     *   }
+     * </code>
+     *
      *
      * @param array $parameters
      *
